@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Peluang Magang: cari lowongan MagangHub dan cek peluangmu</title>
+<meta name="description" content="Cari ribuan lowongan MagangHub Kemnaker, filter sesuai jurusan dan lokasi, lalu lihat seberapa besar peluang diterima.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎯</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:light dark;--bg:#f2f5f9;--card:#fff;--ink:#0e1a2b;--mute:#5a6a80;--line:#dbe3ee;--chip:#eaf0f7;--acc:#2347d8;--on:#fff;--t0:#0a8f55;--t1:#4f9a00;--t2:#b87b00;--t3:#d64e08;--t4:#c4283a}
+@media(prefers-color-scheme:dark){:root{--bg:#0b1220;--card:#131d2f;--ink:#e7edf7;--mute:#92a2ba;--line:#23304a;--chip:#1c2940;--acc:#7d97ff;--on:#0b1220;--t0:#38d996;--t1:#a6e04a;--t2:#ffc83d;--t3:#ff8b4d;--t4:#ff6b7d}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.5 "Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+h1{font-size:clamp(1.9rem,4.5vw,2.8rem);font-weight:800;letter-spacing:-.035em;line-height:1.05;margin:30px 0 6px}
+#sub{margin:0 0 20px;color:var(--mute);max-width:62ch}
+.layout{display:grid;grid-template-columns:290px 1fr;gap:20px;align-items:start}
+.flt{position:sticky;top:12px;max-height:calc(100vh - 24px);overflow:auto;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;display:grid;gap:14px}
+.fh{font-weight:700;font-size:.82rem;display:block;margin-bottom:6px}
+input,select{width:100%;font:inherit;padding:9px 11px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:inherit}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip,.ghost{font:inherit;font-size:.8rem;padding:5px 11px;border-radius:99px;border:1px solid var(--line);background:var(--card);color:inherit;cursor:pointer}
+.chip.on{background:var(--acc);border-color:var(--acc);color:var(--on)}
+.ghost{border-radius:8px}
+#ftg{display:none}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:10px}
+.stats div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 14px}
+.stats b{display:block;font-size:1.35rem;font-weight:800;letter-spacing:-.02em}
+.stats span,.tiers span{font-size:.78rem;color:var(--mute)}
+.tiers{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:14px}
+.tiers button{font:inherit;text-align:left;padding:10px 12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);cursor:pointer;position:relative;overflow:hidden}
+.tiers button.on{border-color:var(--c);box-shadow:inset 0 0 0 1px var(--c)}
+.tiers em{font-style:normal;font-weight:700;font-size:.82rem;color:var(--c)}
+.tiers b{display:block;font-size:1.25rem;letter-spacing:-.02em}
+.tiers i{position:absolute;left:0;bottom:0;height:4px;width:var(--w);background:var(--c)}
+.bar{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:12px}
+.bar #cnt{flex:1;font-weight:600}
+.bar select{width:auto}
+.card{display:grid;grid-template-columns:1fr auto;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:10px}
+.card h3{margin:0;font-size:1.05rem;font-weight:700;line-height:1.3}
+.org{margin:2px 0;font-weight:500}.loc{margin:0 0 8px;color:var(--mute);font-size:.88rem}
+.tag{display:inline-block;font-size:.72rem;padding:2px 9px;border-radius:99px;background:var(--chip);color:var(--mute);margin:0 4px 4px 0}
+.tag.gov{background:color-mix(in srgb,var(--acc) 15%,transparent);color:var(--acc);font-weight:600;margin-left:6px}
+details{margin-top:6px;font-size:.84rem;color:var(--mute)}summary{cursor:pointer}
+.acts{display:flex;gap:8px;margin-top:12px;align-items:center}
+.btn{background:var(--acc);color:var(--on);text-decoration:none;font-weight:600;font-size:.85rem;padding:7px 14px;border-radius:8px}
+.meter{display:flex;flex-direction:column;align-items:flex-end;gap:5px;min-width:118px;color:var(--c);text-align:right}
+.meter b{font-size:2.1rem;font-weight:800;letter-spacing:-.04em;line-height:1}
+.meter strong{font-size:.82rem}
+.seg{display:flex;gap:3px}.seg u{width:18px;height:6px;border-radius:2px;background:var(--line)}.seg u.on{background:var(--c)}
+.meter small{color:var(--mute);font-size:.76rem}
+.empty{padding:40px 10px;text-align:center;color:var(--mute)}
+footer{padding:20px 16px 40px;color:var(--mute);font-size:.8rem;max-width:80ch}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.flt{position:static;max-height:none;display:none}.flt.open{display:grid}#ftg{display:inline-block}.stats{grid-template-columns:repeat(2,1fr)}.tiers{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.card{grid-template-columns:1fr}.meter{order:-1;flex-direction:row;flex-wrap:wrap;align-items:center;text-align:left;gap:4px 10px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Peluang Magang</h1>
+  <p id="sub">Memuat data…</p>
+</div>
+<div class="wrap layout">
+  <aside id="flt" class="flt" aria-label="Filter">
+    <div><label class="fh" for="q">Cari</label><input id="q" type="search" placeholder="Posisi, perusahaan, atau kota"></div>
+    <div><label class="fh" for="jur">Jurusanmu</label><input id="jur" list="jl" placeholder="Contoh: Informatika"><datalist id="jl"></datalist></div>
+    <div><label class="fh" for="prov">Provinsi</label><select id="prov"></select></div>
+    <div><label class="fh" for="city">Kota atau kabupaten</label><select id="city"></select></div>
+    <div><span class="fh">Kategori</span><div class="chips" id="cats"></div></div>
+    <div><span class="fh">Jenjang</span><div class="chips">
+      <button class="chip" data-g="edu" data-v="1">Diploma</button><button class="chip" data-g="edu" data-v="2">Sarjana</button><button class="chip" data-g="edu" data-v="4">Profesi</button></div></div>
+    <div><span class="fh">Wawancara</span><div class="chips">
+      <button class="chip" data-g="intv" data-v="1">Daring</button><button class="chip" data-g="intv" data-v="2">Tatap muka</button></div></div>
+    <div><label class="fh" for="org">Penyelenggara</label><select id="org"><option value="">Semua</option><option value="1">Instansi pemerintah</option><option value="0">Swasta</option></select></div>
+    <div class="chips"><button class="chip" data-g="dis" data-v="1">Ramah disabilitas</button></div>
+    <button class="ghost" id="rst">Reset semua filter</button>
+  </aside>
+  <main>
+    <div class="stats" id="stats"></div>
+    <div class="tiers" id="tiers" aria-label="Sebaran peluang"></div>
+    <div class="bar">
+      <button class="ghost" id="ftg">Filter</button>
+      <span id="cnt"></span>
+      <button class="chip" data-g="sv" data-v="1" id="svb">Tersimpan</button>
+      <label>Urutkan <select id="sort"><option value="p">Peluang tertinggi</option><option value="q">Kuota terbanyak</option><option value="a">Pelamar tersedikit</option><option value="ap">Pelamar terbanyak</option><option value="t">Judul A–Z</option></select></label>
+    </div>
+    <div id="list"><p class="empty">Memuat lowongan…</p></div>
+    <div id="more"></div>
+  </main>
+</div>
+<footer>Peluang dihitung dari kuota dibagi jumlah pelamar saat data diambil, jadi hanya perkiraan kasar: pelamar terus bertambah dan angka ini bukan jaminan diterima. Situs ini tidak resmi. Klik Buka di MagangHub untuk melihat detail dan melamar di sumbernya.</footer>
+<script>
+const $=s=>document.querySelector(s),esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])),fmt=n=>n.toLocaleString('id-ID');
+const TIER=['Terbuka','Tinggi','Sedang','Ketat','Sangat ketat'];
+const TIPS=['Kuota sama atau lebih banyak dari pelamar','Kuota 50–99% dari jumlah pelamar','Kuota 25–49% dari jumlah pelamar','Kuota 10–24% dari jumlah pelamar','Kuota di bawah 10% dari jumlah pelamar'];
+const EDUN={1:'Diploma',2:'Sarjana',4:'Profesi'},IVN={1:'Daring',2:'Tatap muka'};
+const CATN={it:'IT',sdm:'SDM',lain:'Lainnya',dev:'Developer'},CAT=n=>CATN[n]||n.charAt(0).toUpperCase()+n.slice(1);
+const S={q:'',prov:'',city:'',cat:new Set,edu:0,intv:0,jur:'',tier:new Set,dis:0,org:'',sort:'p',sv:0},KEYS=Object.keys(S);
+const SORTS={p:(a,b)=>b.p-a.p||b.q-a.q,q:(a,b)=>b.q-a.q||a.ap-b.ap,a:(a,b)=>a.ap-b.ap||b.q-a.q,ap:(a,b)=>b.ap-a.ap,t:(a,b)=>a.t.localeCompare(b.t,'id')};
+let SV=new Set;try{SV=new Set(JSON.parse(localStorage.getItem('mh-saved')||'[]'))}catch{}
+let J,D,R=[],PC=new Map,cur=[],shown=0,tm;
+const names=(m,t)=>Object.keys(t).filter(k=>m&k).map(k=>t[k]).join(', ');
+const tog=(set,v)=>set.has(v)?set.delete(v):set.add(v);
+const on=(g,v)=>g==='cat'?S.cat.has(v):g==='tier'?S.tier.has(+v):g==='edu'||g==='intv'?!!(S[g]&+v):!!S[g];
+
+fetch('data.json').then(r=>r.json()).catch(()=>null).then(j=>j?init(j):($('#list').innerHTML='<p class="empty">Data gagal dimuat. Kalau file dibuka langsung dari folder, jalankan lewat server lokal (python -m http.server) atau publikasikan ke GitHub Pages.</p>'));
+
+function init(j){
+  J=j;D=j.d;
+  R=j.r.map(a=>{const q=a[9],ap=a[10],p=q/Math.max(ap,1);
+    return{k:a[0],t:a[1],o:a[2],c:a[3],pv:a[4],ct:a[5],e:a[6],iv:a[7],dy:a[8],q,ap,dis:a[11],ot:a[12],pg:a[13],p,
+      tier:p>=1?0:p>=.5?1:p>=.25?2:p>=.1?3:4,h:(a[1]+' '+D.org[a[2]]+' '+D.city[a[3]]+' '+D.prov[a[4]]).toLowerCase()}});
+  for(const r of R){if(!PC.has(r.pv))PC.set(r.pv,new Set);PC.get(r.pv).add(r.c)}
+  const d=new Date(j.meta.date).toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'});
+  $('#sub').textContent=`${fmt(R.length)} lowongan MagangHub Kemnaker per ${d}. Pilih jurusan dan lokasimu, lalu lihat lowongan mana yang paling sepi pelamar.`;
+  $('#prov').innerHTML='<option value="">Semua provinsi</option>'+D.prov.slice().sort((a,b)=>a.localeCompare(b,'id')).map(n=>`<option>${esc(n)}</option>`).join('');
+  $('#cats').innerHTML=D.cat.slice().sort().map(n=>`<button class="chip" data-g="cat" data-v="${esc(n)}">${esc(CAT(n))}</button>`).join('');
+  $('#jl').innerHTML=D.prog.slice().sort((a,b)=>a.localeCompare(b,'id')).map(n=>`<option value="${esc(n)}">`).join('');
+  fromHash();fillCities();syncUI();run();
+  new IntersectionObserver(e=>e[0].isIntersecting&&more(),{rootMargin:'700px'}).observe($('#more'));
+}
+function fromHash(){const u=new URLSearchParams(location.hash.slice(1));for(const k of KEYS){const v=u.get(k);if(v==null)continue;
+  S[k]=S[k] instanceof Set?new Set(k==='tier'?v.split('|').map(Number):v.split('|')):typeof S[k]==='number'?+v:v}}
+function toHash(){const u=new URLSearchParams();for(const k of KEYS){let v=S[k];if(v instanceof Set)v=[...v].join('|');if(v&&!(k==='sort'&&v==='p'))u.set(k,v)}history.replaceState(null,'','#'+u)}
+function fillCities(){const ids=S.prov?[...(PC.get(D.prov.indexOf(S.prov))||[])]:D.city.map((_,i)=>i);
+  $('#city').innerHTML='<option value="">Semua kota</option>'+ids.map(i=>D.city[i]).sort((a,b)=>a.localeCompare(b,'id')).map(n=>`<option>${esc(n)}</option>`).join('');$('#city').value=S.city}
+function syncUI(){for(const k of['q','jur','prov','city','org','sort'])$('#'+k).value=S[k]}
+function pred(){
+  const w=S.q.toLowerCase().split(/\s+/).filter(Boolean),pv=D.prov.indexOf(S.prov),ci=D.city.indexOf(S.city),cs=new Set([...S.cat].map(n=>D.cat.indexOf(n))),j=S.jur.trim().toLowerCase();
+  const js=j?new Set(D.prog.flatMap((n,i)=>n.toLowerCase().includes(j)?[i]:[])):null;
+  return r=>(!w.length||w.every(x=>r.h.includes(x)))&&(!S.prov||r.pv===pv)&&(!S.city||r.c===ci)&&(!cs.size||cs.has(r.ct))&&(!S.edu||r.e&S.edu)&&(!S.intv||r.iv&S.intv)&&(!js||r.pg.some(i=>js.has(i)))&&(!S.dis||r.dis)&&(S.org===''||r.ot===+S.org)&&(!S.sv||SV.has(r.k));
+}
+function run(){
+  const ok=pred(),counts=[0,0,0,0,0];let pre=0;const base=[];
+  for(const r of R){if(!ok(r))continue;pre++;counts[r.tier]++;if(!S.tier.size||S.tier.has(r.tier))base.push(r)}
+  cur=base.sort(SORTS[S.sort]);
+  let Q=0,A=0;for(const r of cur){Q+=r.q;A+=r.ap}
+  $('#stats').innerHTML=[[fmt(cur.length),'Lowongan'],[fmt(Q),'Total kuota'],[fmt(A),'Total pelamar'],[Q?(A/Q).toFixed(1).replace('.',','):'-','Pelamar per kursi']].map(([b,s])=>`<div><b>${b}</b><span>${s}</span></div>`).join('');
+  $('#tiers').innerHTML=TIER.map((n,i)=>`<button data-g="tier" data-v="${i}" title="${TIPS[i]}" class="${S.tier.has(i)?'on':''}" style="--c:var(--t${i});--w:${pre?counts[i]/pre*100:0}%"><em>${n}</em><b>${fmt(counts[i])}</b><span>${pre?Math.round(counts[i]/pre*100):0}% dari hasil</span><i></i></button>`).join('');
+  $('#cnt').textContent=`${fmt(cur.length)} lowongan`;
+  $('#svb').textContent=`Tersimpan (${SV.size})`;
+  document.querySelectorAll('.flt [data-g],#svb').forEach(b=>b.classList.toggle('on',on(b.dataset.g,b.dataset.v)));
+  shown=0;$('#list').innerHTML=cur.length?'':'<p class="empty">Belum ada lowongan yang cocok. Longgarkan filter atau tekan Reset semua filter.</p>';
+  more();toHash();
+}
+function more(){
+  if(shown>=cur.length)return;
+  const s=cur.slice(shown,shown+40);shown+=s.length;
+  $('#list').insertAdjacentHTML('beforeend',s.map(card).join(''));
+  requestAnimationFrame(()=>{if(shown<cur.length&&$('#more').getBoundingClientRect().top<innerHeight+700)more()});
+}
+function card(r){
+  const pct=Math.min(100,Math.round(r.p*100)),pg=r.pg.map(i=>D.prog[i]),sv=SV.has(r.k);
+  const seg=Array.from({length:5},(_,i)=>i<5-r.tier?'<u class="on"></u>':'<u></u>').join('');
+  const tags=[CAT(D.cat[r.ct]),names(r.e,EDUN),'Wawancara '+names(r.iv,IVN).toLowerCase(),r.dy+' hari/minggu',r.dis?'Ramah disabilitas':''].filter(Boolean).map(t=>`<span class="tag">${esc(t)}</span>`).join('');
+  return`<article class="card" data-k="${esc(r.k)}"><div><h3>${esc(r.t)}</h3><p class="org">${esc(D.org[r.o])}${r.ot?'<span class="tag gov">Pemerintah</span>':''}</p><p class="loc">${esc(D.city[r.c])}, ${esc(D.prov[r.pv])}</p>${tags}
+<details><summary>Jurusan yang diterima (${pg.length})</summary><p>${esc(pg.join(', '))}</p></details>
+<div class="acts"><a class="btn" href="${esc(J.meta.base+r.k)}" target="_blank" rel="noopener">Buka di MagangHub</a><button class="chip${sv?' on':''}" data-save>${sv?'Tersimpan':'Simpan'}</button></div></div>
+<div class="meter" style="--c:var(--t${r.tier})"><b>${pct}%</b><strong>${TIER[r.tier]}</strong><i class="seg">${seg}</i><small>${r.q} kuota, ${r.ap} pelamar</small></div></article>`;
+}
+function reset(){Object.assign(S,{q:'',prov:'',city:'',cat:new Set,edu:0,intv:0,jur:'',tier:new Set,dis:0,org:'',sv:0});fillCities();syncUI();run()}
+const deb=f=>()=>{clearTimeout(tm);tm=setTimeout(f,150)};
+$('#q').oninput=deb(()=>{S.q=$('#q').value;run()});
+$('#jur').oninput=deb(()=>{S.jur=$('#jur').value;run()});
+$('#prov').onchange=e=>{S.prov=e.target.value;S.city='';fillCities();run()};
+$('#city').onchange=e=>{S.city=e.target.value;run()};
+$('#org').onchange=e=>{S.org=e.target.value;run()};
+$('#sort').onchange=e=>{S.sort=e.target.value;run()};
+$('#rst').onclick=reset;
+$('#ftg').onclick=()=>$('#flt').classList.toggle('open');
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-g]');
+  if(b){const g=b.dataset.g,v=b.dataset.v;
+    if(g==='cat')tog(S.cat,v);else if(g==='tier')tog(S.tier,+v);else if(g==='edu'||g==='intv')S[g]^=+v;else S[g]^=1;
+    return run()}
+  const s=e.target.closest('[data-save]');
+  if(s){const k=s.closest('.card').dataset.k;tog(SV,k);
+    try{localStorage.setItem('mh-saved',JSON.stringify([...SV]))}catch{}
+    if(S.sv)return run();
+    s.textContent=SV.has(k)?'Tersimpan':'Simpan';s.classList.toggle('on',SV.has(k));$('#svb').textContent=`Tersimpan (${SV.size})`}
+});
+</script>
+</body>
+</html>
